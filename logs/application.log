@@ -1,0 +1,56 @@
+2026-06-27 15:37:27 INFO package: mysql.connector.plugins
+2026-06-27 15:37:27 INFO plugin_name: caching_sha2_password
+2026-06-27 15:37:27 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:37:27 INFO Database Connection Established
+2026-06-27 15:37:27 WARNING Invalid Login Attempt for: ms1@gmail.com
+2026-06-27 15:37:42 INFO Database Connection Established
+2026-06-27 15:37:43 INFO User Registered: ms1@gmail.com as PASSENGER
+2026-06-27 15:38:21 INFO package: mysql.connector.plugins
+2026-06-27 15:38:21 INFO plugin_name: caching_sha2_password
+2026-06-27 15:38:21 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:38:21 INFO Database Connection Established
+2026-06-27 15:38:22 ERROR Registration Query Crashed: 1062 (23000): Duplicate entry 'ms1@gmail.com' for key 'users.email'
+2026-06-27 15:38:48 INFO Database Connection Established
+2026-06-27 15:38:48 INFO User Logged In: ms1@gmail.com
+2026-06-27 15:38:54 INFO package: mysql.connector.plugins
+2026-06-27 15:38:54 INFO plugin_name: caching_sha2_password
+2026-06-27 15:38:54 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:38:54 INFO Database Connection Established
+2026-06-27 15:39:15 INFO User Logged Out
+2026-06-27 15:39:38 INFO Database Connection Established
+2026-06-27 15:39:39 INFO User Registered: op1@gmail.com as OPERATOR
+2026-06-27 15:39:51 INFO Database Connection Established
+2026-06-27 15:39:52 INFO User Logged In: op1@gmail.com
+2026-06-27 15:40:47 INFO Database Connection Established
+2026-06-27 15:40:47 INFO Operator Added Bus: bus11 running from chennai to bangalore
+2026-06-27 15:40:53 INFO Database Connection Established
+2026-06-27 15:41:06 INFO User Logged Out
+2026-06-27 15:41:18 INFO Database Connection Established
+2026-06-27 15:41:19 INFO User Logged In: ms1@gmail.com
+2026-06-27 15:41:24 INFO Database Connection Established
+2026-06-27 15:41:46 INFO Database Connection Established
+2026-06-27 15:41:58 INFO Database Connection Established
+2026-06-27 15:41:58 INFO Ticket Booked: User ID 1 locked 3 seats on Bus ID 1
+2026-06-27 15:42:03 INFO Database Connection Established
+2026-06-27 15:42:10 INFO Database Connection Established
+2026-06-27 15:42:16 INFO User Logged Out
+2026-06-27 15:52:59 INFO package: mysql.connector.plugins
+2026-06-27 15:52:59 INFO plugin_name: caching_sha2_password
+2026-06-27 15:52:59 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:52:59 INFO Database Connection Established
+2026-06-27 15:52:59 INFO User Registered: admin@gmail.com as PASSENGER
+2026-06-27 15:54:04 INFO package: mysql.connector.plugins
+2026-06-27 15:54:04 INFO plugin_name: caching_sha2_password
+2026-06-27 15:54:04 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:54:04 INFO Database Connection Established
+2026-06-27 15:54:04 INFO User Logged In: admin@gmail.com
+2026-06-27 15:54:48 INFO User Logged Out
+2026-06-27 15:56:11 INFO package: mysql.connector.plugins
+2026-06-27 15:56:11 INFO plugin_name: caching_sha2_password
+2026-06-27 15:56:11 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-27 15:56:11 INFO Database Connection Established
+2026-06-27 15:56:12 INFO User Logged In: admin@gmail.com
+2026-06-27 15:56:15 INFO Database Connection Established
+2026-06-27 15:56:18 INFO Database Connection Established
+2026-06-27 15:57:04 INFO Database Connection Established
+2026-06-27 15:57:36 INFO User Logged Out

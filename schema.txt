@@ -1,0 +1,33 @@
+CREATE DATABASE IF NOT EXISTS fastx;
+USE fastx;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'PASSENGER', 'OPERATOR') NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS buses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bus_name VARCHAR(100) NOT NULL,
+    source VARCHAR(100) NOT NULL,
+    destination VARCHAR(100) NOT NULL,
+    journey_date DATE NOT NULL,
+    departure_time TIME NOT NULL,
+    total_seats INT NOT NULL,
+    available_seats INT NOT NULL,
+    operator_id INT NOT NULL,
+    FOREIGN KEY (operator_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS bookings (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    passenger_id INT NOT NULL,
+    bus_id INT NOT NULL,
+    seat_count INT NOT NULL,
+    booking_date DATE NOT NULL,
+    FOREIGN KEY (passenger_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (bus_id) REFERENCES buses(id) ON DELETE CASCADE
+);
