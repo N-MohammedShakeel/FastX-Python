@@ -2,6 +2,9 @@ from services.auth_service import AuthService
 from validators.validators import is_valid_email, is_valid_password
 from exceptions.invalid_credentials_exception import InvalidCredentialsException
 
+ROLE_PASSENGER = "PASSENGER"
+ROLE_OPERATOR = "OPERATOR"
+
 class AuthController:
     def __init__(self):
         self.auth_service = AuthService()
@@ -9,7 +12,7 @@ class AuthController:
     def register_passenger(self, name, email, password):
         if not is_valid_email(email) or not is_valid_password(password):
             return False
-        if self.auth_service.register(name, email, password, 'PASSENGER'):
+        if self.auth_service.register(name, email, password, ROLE_PASSENGER):
             print("\nSUCCESS: Passenger Registration Successful. Proceed to login.")
             return True
         print("ERROR: Registration Failed.")
@@ -18,7 +21,7 @@ class AuthController:
     def register_operator(self, name, email, password):
         if not is_valid_email(email) or not is_valid_password(password):
             return False
-        if self.auth_service.register(name, email, password, 'OPERATOR'):
+        if self.auth_service.register(name, email, password, ROLE_OPERATOR):
             print("SUCCESS: Operator Registration Successful. Proceed to login.")
             return True
         print("ERROR: Registration Failed.")

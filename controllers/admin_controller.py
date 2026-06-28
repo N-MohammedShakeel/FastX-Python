@@ -15,7 +15,7 @@ class AdminController:
             print("No passengers registered.")
             return
         for user in users:
-            print(f"ID: {user['id']} \nName: {user['name']} \nEmail: {user['email']} \nWallet Balance: ${user['wallet']} \n")
+            print(f"ID: {user['id']} \nName: {user['name']} \nEmail: {user['email']} \nWallet Balance: {user['wallet']} \n")
 
     @check_authentication
     @role_allowed(ROLE_ADMIN)
@@ -37,7 +37,7 @@ class AdminController:
             print("No bookings found.")
             return
         for booking in bookings:
-            print(f"ID: {booking['booking_id']} \nClient: {booking['passenger_name']} \nFleet Variant: {booking['bus_name']} \nVector: {booking['source']}->{booking['destination']} \nBill: ${booking['total_price']} \nCapacity: {booking['seat_count']} \nStatus: {booking['status']} \n")
+            print(f"Booking ID: {booking['booking_id']} \nPassenger Name: {booking['passenger_name']} \nBus Name: {booking['bus_name']} \nRoute: {booking['origin']} -> {booking['destination']} \nBill: {booking['total_price']} \nTotal Seats Booked: {booking['seat_count']} \nStatus: {booking['status']} \n")
             
     @check_authentication
     @role_allowed(ROLE_ADMIN)
