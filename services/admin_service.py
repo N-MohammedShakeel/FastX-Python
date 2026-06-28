@@ -1,55 +1,30 @@
-from utils.db import get_connection
-from utils.logger import log_error
+from repositories.user_repository import UserRepository
+from repositories.booking_repository import BookingRepository
+from utils.logger import log_info
+
+ROLE_PASSENGER = "PASSENGER"
+ROLE_OPERATOR = "OPERATOR"
 
 class AdminService:
+    def __init__(self):
+        self.user_repo = UserRepository()
+        self.booking_repo = BookingRepository()
+
     def view_users(self):
-        """Compiles passenger identity values stored inside user directory vectors."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT id, name, email FROM users WHERE role = 'PASSENGER'")
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"Admin View Users Query Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+        log_info("Admin viewed passenger records.")
+        return self.user_repo.view_users_by_role(ROLE_PASSENGER)
 
     def view_operators(self):
-        """Compiles company tracking values stored inside directory listings."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT id, name, email FROM users WHERE role = 'OPERATOR'")
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"Admin View Operators Query Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+        log_info("Admin viewed operator records.")
+        return self.user_repo.view_users_by_role(ROLE_OPERATOR)
 
     def view_all_bookings(self):
-        """Extracts complete system reservation logs across global variables."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            query = """
-                SELECT b.id as booking_id, u.name as passenger_name, bus.bus_name, 
-                       bus.source, bus.destination, b.seat_count, b.booking_date 
-                FROM bookings b
-                JOIN buses bus ON b.bus_id = bus.id
-                JOIN users u ON b.passenger_id = u.id
-            """
-            cursor.execute(query)
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"Admin View All Bookings Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+        log_info("Admin viewed booking records.")
+        return self.booking_repo.find_all_bookings_dashboard()
+
+    def get_dashboard_stats(self):
+        return {
+            "passengers": self.user_repo.get_passenger_count(),
+            "operators": self.user_repo.get_operator_count(),
+            "bookings": self.booking_repo.count_all_bookings()
+        }

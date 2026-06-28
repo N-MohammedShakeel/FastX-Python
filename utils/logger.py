@@ -12,13 +12,10 @@ logging.basicConfig(
 )
 
 def log_info(msg):
-    """Logs simple general runtime milestones."""
     logging.info(msg)
 
 def log_error(msg):
-    """Logs system runtime crashes or database statement failures."""
     logging.error(msg)
 
 def log_warning(msg):
-    """Logs authentication rejections or input layout alerts."""
     logging.warning(msg)

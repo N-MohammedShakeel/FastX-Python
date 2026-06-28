@@ -1,90 +1,163 @@
 from datetime import datetime
+from repositories.user_repository import UserRepository
+from repositories.bus_repository import BusRepository
+from repositories.booking_repository import BookingRepository
+from repositories.seat_booking_repository import SeatBookingRepository
+from models.booking import Booking
 from utils.db import get_connection
-from utils.logger import log_info, log_error
+from utils.logger import log_info, log_warning, log_error
+from exceptions.bus_not_found_exception import BusNotFoundException
+from exceptions.insufficient_seats_exception import InsufficientSeatsException
+from exceptions.invalid_seat_selection_exception import InvalidSeatSelectionException
+from exceptions.insufficient_balance_exception import InsufficientBalanceException
+from exceptions.user_not_found_exception import UserNotFoundException
 
 class PassengerService:
+    def __init__(self):
+        self.user_repo = UserRepository()
+        self.bus_repo = BusRepository()
+        self.booking_repo = BookingRepository()
+        self.seat_repo = SeatBookingRepository()
 
     def view_all_buses(self):
-        """Fetches all schedules registered in the system."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute("SELECT * FROM buses")
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"View Buses Query Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+        return self.bus_repo.find_all()
 
-    def search_buses(self, src, dest, date_str):
-        """Filters scheduling lists tracking matching geographical vectors."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            query = "SELECT * FROM buses WHERE source = %s AND destination = %s AND journey_date = %s"
-            cursor.execute(query, (src, dest, date_str))
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"Search Route Query Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+    def search_buses(self, origin, destination, date_str):
+        return self.bus_repo.search(origin, destination, date_str)
 
-    def book_ticket(self, passenger_id, bus_id, seat_count):
-        """Deducts database integers and registers tracking records safely."""
+    def add_money(self, user_id, amount):
+        user = self.user_repo.find_by_id(user_id)
+        if not user: 
+            raise UserNotFoundException()
+        
+        user.deposit_money(amount)
+        return self.user_repo.update_wallet(user_id, user.wallet)
+
+    def get_wallet(self, user_id):
+        user = self.user_repo.find_by_id(user_id)
+        if user:
+            return user.wallet
+        else:
+            raise UserNotFoundException()
+
+    def get_dashboard_stats(self, user_id):
+        return {
+            "wallet": self.get_wallet(user_id),
+            "bookings": self.booking_repo.count_passenger_bookings(user_id),
+            "cancellations": self.booking_repo.count_passenger_cancellations(user_id)
+        }
+
+    def view_my_bookings(self, user_id):
+        return self.booking_repo.find_by_passenger(user_id)
+
+    def book_ticket(self, passenger_id, bus_id, seat_list):
+
+        bus = self.bus_repo.find_by_id(bus_id)
+        if not bus:
+            log_warning(f"Booking failed. Bus {bus_id} not found.") 
+            raise BusNotFoundException()
+        
+        seat_count = len(seat_list)
+
+        if len(set(seat_list)) != len(seat_list):
+            log_warning(f"Passenger {passenger_id} selected duplicate seats {seat_list}")
+            raise InvalidSeatSelectionException("Duplicate seat numbers are not allowed.")
+
+        if bus.available_seats < seat_count: 
+            log_warning(f"Passenger {passenger_id} tried booking {seat_count} seats but only {bus.available_seats} available.")
+            raise InsufficientSeatsException()
+
+        booked = self.seat_repo.get_booked_seats(bus_id)
+        for seat in seat_list:
+            if seat <= 0 or seat > bus.total_seats or seat in booked:
+                log_warning(f"Passenger {passenger_id} selected invalid seat {seat} for Bus {bus_id}")
+                raise InvalidSeatSelectionException(f"Seat {seat} invalid or already booked.")
+
+        passenger = self.user_repo.find_by_id(passenger_id)
+        operator = self.user_repo.find_by_id(bus.operator_id)
+        
+        total_price = bus.ticket_price * seat_count
+        if passenger.wallet < total_price: 
+            log_warning(f"Passenger {passenger_id} has insufficient balance.")
+            raise InsufficientBalanceException()
+
         conn = get_connection()
-        if not conn:
-            return False
         try:
-            cursor = conn.cursor(dictionary=True)
+            passenger.deduct_money(total_price)
+            operator.deposit_money(total_price)
+            bus.allocate_seats(seat_count)
             
-            cursor.execute("SELECT available_seats FROM buses WHERE id = %s", (bus_id,))
-            bus = cursor.fetchone()
+            self.user_repo.update_wallet(passenger.id, passenger.wallet, conn_inherited=conn)
+            self.user_repo.update_wallet(operator.id, operator.wallet, conn_inherited=conn)
+            self.bus_repo.update(bus)
             
-            if not bus or bus["available_seats"] < seat_count:
-                log_error("Booking Failed: Insufficient seat inventory capacity available.")
-                return False
-                
-            new_seats = bus["available_seats"] - seat_count
-            cursor.execute("UPDATE buses SET available_seats = %s WHERE id = %s", (new_seats, bus_id))
+            new_booking = Booking(None, passenger_id, bus_id, seat_count, datetime.now().strftime("%Y-%m-%d"), 'BOOKED', total_price)
+            booking_id = self.booking_repo.save(new_booking, conn_inherited=conn)
             
-            today = datetime.now().strftime("%Y-%m-%d")
-            booking_query = "INSERT INTO bookings (passenger_id, bus_id, seat_count, booking_date) VALUES (%s, %s, %s, %s)"
-            cursor.execute(booking_query, (passenger_id, bus_id, seat_count, today))
+            for seat in seat_list:
+                self.seat_repo.create_seat_booking(booking_id, bus_id, seat, conn_inherited=conn)
             
+            log_info(f"Booking Successful for Booking ID: {booking_id}, Passenger: {passenger_id}, Bus: {bus_id}, Seats: {seat_list}, Amount: {total_price}")
             conn.commit()
-            log_info(f"Ticket Booked: User ID {passenger_id} locked {seat_count} seats on Bus ID {bus_id}")
             return True
         except Exception as exception:
             conn.rollback()
-            log_error(f"Booking Process Crashed: {exception}")
+            log_error(f"Booking Failed for Passenger: {passenger_id}, Bus: {bus_id}, Error: {exception}")
+            raise exception
+        finally:
+            conn.close()
+
+    def cancel_booking(self, passenger_id, booking_id):
+
+        booking = self.booking_repo.find_by_id(booking_id)
+
+        if not booking or booking.passenger_id != passenger_id or booking.status == 'CANCELLED':
+            print("ERROR: Booking not found or already cancelled.")
+            log_warning(f"Cancellation failed. Booking {booking_id} not found.")
+            return False
+
+        bus = self.bus_repo.find_by_id(booking.bus_id)
+        passenger = self.user_repo.find_by_id(passenger_id)
+        operator = self.user_repo.find_by_id(bus.operator_id)
+
+        if not passenger or not operator:
+            raise UserNotFoundException()
+
+        if not bus:
+            raise BusNotFoundException()
+        
+        refund = booking.total_price
+
+        conn = get_connection()
+        try:
+            operator.deduct_money(refund)
+            passenger.deposit_money(refund)
+            bus.release_seats(booking.seat_count)
+            
+            self.booking_repo.update_status(booking_id, 'CANCELLED', conn_inherited=conn)
+            self.seat_repo.delete_booking_seats(booking_id, conn_inherited=conn)            
+            self.bus_repo.update(bus)
+            self.user_repo.update_wallet(passenger.id, passenger.wallet, conn_inherited=conn)
+            self.user_repo.update_wallet(operator.id, operator.wallet, conn_inherited=conn)
+            
+            log_info(f"Booking {booking_id} cancelled successfully. Refunded amount: {refund}")
+            conn.commit()
+            return True
+        except Exception as exception:
+            log_error(f"Cancellation failed. Booking {booking_id}. Error: {exception}")
+            print(f"ERROR: Cancellation Failed. {exception}")
+            conn.rollback()
             return False
         finally:
             conn.close()
 
-    def get_my_bookings(self, passenger_id):
-        """Gathers relational join data lists specifying user asset matching."""
-        conn = get_connection()
-        if not conn:
-            return []
-        try:
-            cursor = conn.cursor(dictionary=True)
-            query = """
-                SELECT b.id as booking_id, bus.bus_name, bus.source, bus.destination, 
-                       bus.journey_date, b.seat_count, b.booking_date 
-                FROM bookings b
-                JOIN buses bus ON b.bus_id = bus.id
-                WHERE b.passenger_id = %s
-            """
-            cursor.execute(query, (passenger_id,))
-            return cursor.fetchall()
-        except Exception as exception:
-            log_error(f"My Bookings Query Failed: {exception}")
-            return []
-        finally:
-            conn.close()
+    def get_seat_layout(self, bus_id):
+
+        bus = self.bus_repo.find_by_id(bus_id)
+        if not bus:
+            log_warning(f"Seat layout requested for invalid Bus ID {bus_id}")
+            raise BusNotFoundException()
+        return self.seat_repo.get_seat_layout(
+            bus.id,
+            bus.total_seats
+        )
