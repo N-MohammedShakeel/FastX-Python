@@ -6,7 +6,6 @@ ROLE_OPERATOR = "OPERATOR"
 class OperatorController:
     def __init__(self):
         self.operator_service = OperatorService()
-
     @check_authentication
     @role_allowed(ROLE_OPERATOR)
     def add_bus(self, name, origin, destination, date, time, total_seats, operator_id, ticket_price):

@@ -8,15 +8,31 @@ class SeatBooking:
     @property
     def id(self): 
         return self.__id
+
+    @id.setter
+    def id(self, value):
+        self.__id = value
     
     @property
     def booking_id(self): 
         return self.__booking_id
+
+    @booking_id.setter
+    def booking_id(self, value):
+        self.__booking_id = value
     
     @property
     def bus_id(self): 
         return self.__bus_id
+
+    @bus_id.setter
+    def bus_id(self, value):
+        self.__bus_id = value
     
     @property
     def seat_number(self): 
         return self.__seat_number
+
+    @seat_number.setter
+    def seat_number(self, value):
+        self.__seat_number = value

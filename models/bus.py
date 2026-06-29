@@ -15,49 +15,79 @@ class Bus:
     @property
     def id(self): 
         return self.__id
+
+    @id.setter
+    def id(self, value):
+        self.__id = value
+
     @property
     def bus_name(self): 
         return self.__bus_name
+
+    @bus_name.setter
+    def bus_name(self, value):
+        self.__bus_name = value
+
     @property
     def origin(self): 
         return self.__origin
+
+    @origin.setter
+    def origin(self, value):
+        self.__origin = value
+
     @property
     def destination(self): 
         return self.__destination
+
+    @destination.setter
+    def destination(self, value):
+        self.__destination = value
+
     @property
     def journey_date(self): 
         return self.__journey_date
+
+    @journey_date.setter
+    def journey_date(self, value):
+        self.__journey_date = value
+
     @property
     def departure_time(self): 
         return self.__departure_time
+
+    @departure_time.setter
+    def departure_time(self, value):
+        self.__departure_time = value
+
     @property
     def total_seats(self): 
         return self.__total_seats
+
+    @total_seats.setter
+    def total_seats(self, value):
+        self.__total_seats = value
+
     @property
     def available_seats(self): 
         return self.__available_seats
+
+    @available_seats.setter
+    def available_seats(self, value):
+        self.__available_seats = value
+
     @property
     def operator_id(self): 
         return self.__operator_id
+
+    @operator_id.setter
+    def operator_id(self, value):
+        self.__operator_id = value
+
     @property
     def ticket_price(self): 
         return self.__ticket_price
 
-    @bus_name.setter
-    def bus_name(self, value): 
-        self.__bus_name = value
-    @origin.setter
-    def origin(self, value): 
-        self.__origin = value
-    @destination.setter
-    def destination(self, value): 
-        self.__destination = value
-    @journey_date.setter
-    def journey_date(self, value): 
-        self.__journey_date = value
-    @departure_time.setter
-    def departure_time(self, value): 
-        self.__departure_time = value
     @ticket_price.setter
     def ticket_price(self, value): 
         if float(value) < 0: 
