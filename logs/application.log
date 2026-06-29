@@ -1,75 +1,48 @@
-2026-06-28 23:11:09 INFO Auto login payload found: ms1@gmail.com
-2026-06-28 23:11:09 INFO package: mysql.connector.plugins
-2026-06-28 23:11:09 INFO plugin_name: caching_sha2_password
-2026-06-28 23:11:09 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
-2026-06-28 23:11:09 INFO Database Connection Established
-2026-06-28 23:11:09 INFO Database Connection Established
-2026-06-28 23:11:09 INFO Database Connection Established
-2026-06-28 23:11:09 INFO Database Connection Established
-2026-06-28 23:11:17 INFO User logged out. Email: ms1@gmail.com
-2026-06-28 23:11:34 INFO Database Connection Established
-2026-06-28 23:11:35 INFO Database Connection Established
-2026-06-28 23:11:35 INFO PASSENGER registered successfully. Email: admin@gmail.com
-2026-06-28 23:12:28 INFO Database Connection Established
-2026-06-28 23:12:29 INFO Login successful. User: admin@gmail.com, Role: ADMIN
-2026-06-28 23:12:29 INFO Database Connection Established
-2026-06-28 23:12:29 INFO Database Connection Established
-2026-06-28 23:12:29 INFO Database Connection Established
-2026-06-28 23:13:09 INFO Admin viewed passenger records.
-2026-06-28 23:13:09 INFO Database Connection Established
-2026-06-28 23:13:09 INFO Database Connection Established
-2026-06-28 23:13:09 INFO Database Connection Established
-2026-06-28 23:13:09 INFO Database Connection Established
-2026-06-28 23:13:47 INFO Auto login payload found: admin@gmail.com
-2026-06-28 23:13:47 INFO package: mysql.connector.plugins
-2026-06-28 23:13:47 INFO plugin_name: caching_sha2_password
-2026-06-28 23:13:47 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
-2026-06-28 23:13:47 INFO Database Connection Established
-2026-06-28 23:13:47 INFO Database Connection Established
-2026-06-28 23:13:48 INFO Database Connection Established
-2026-06-28 23:13:48 INFO Database Connection Established
-2026-06-28 23:13:50 INFO Admin viewed passenger records.
-2026-06-28 23:13:50 INFO Database Connection Established
-2026-06-28 23:13:50 INFO Database Connection Established
-2026-06-28 23:13:50 INFO Database Connection Established
-2026-06-28 23:13:50 INFO Database Connection Established
-2026-06-28 23:13:56 INFO Admin viewed operator records.
-2026-06-28 23:13:56 INFO Database Connection Established
-2026-06-28 23:13:56 INFO Database Connection Established
-2026-06-28 23:13:56 INFO Database Connection Established
-2026-06-28 23:13:57 INFO Database Connection Established
-2026-06-28 23:14:19 INFO Admin viewed booking records.
-2026-06-28 23:14:19 INFO Database Connection Established
-2026-06-28 23:14:39 INFO Auto login payload found: admin@gmail.com
-2026-06-28 23:14:39 INFO package: mysql.connector.plugins
-2026-06-28 23:14:39 INFO plugin_name: caching_sha2_password
-2026-06-28 23:14:39 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
-2026-06-28 23:14:39 INFO Database Connection Established
-2026-06-28 23:14:39 INFO Database Connection Established
-2026-06-28 23:14:39 INFO Database Connection Established
-2026-06-28 23:14:39 INFO Database Connection Established
-2026-06-28 23:14:41 INFO Admin viewed booking records.
-2026-06-28 23:14:41 INFO Database Connection Established
-2026-06-28 23:14:41 INFO Database Connection Established
-2026-06-28 23:14:41 INFO Database Connection Established
-2026-06-28 23:14:41 INFO Database Connection Established
-2026-06-28 23:16:15 INFO Auto login payload found: admin@gmail.com
-2026-06-28 23:16:15 INFO package: mysql.connector.plugins
-2026-06-28 23:16:15 INFO plugin_name: caching_sha2_password
-2026-06-28 23:16:15 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
-2026-06-28 23:16:15 INFO Database Connection Established
-2026-06-28 23:16:15 INFO Database Connection Established
-2026-06-28 23:16:15 INFO Database Connection Established
-2026-06-28 23:16:15 INFO Database Connection Established
-2026-06-28 23:16:25 INFO User logged out. Email: admin@gmail.com
-2026-06-28 23:16:37 INFO Database Connection Established
-2026-06-28 23:16:37 INFO Login successful. User: admin@gmail.com, Role: ADMIN
-2026-06-28 23:16:37 INFO Database Connection Established
-2026-06-28 23:16:37 INFO Database Connection Established
-2026-06-28 23:16:37 INFO Database Connection Established
-2026-06-28 23:16:39 INFO Admin viewed booking records.
-2026-06-28 23:16:39 INFO Database Connection Established
-2026-06-28 23:16:39 INFO Database Connection Established
-2026-06-28 23:16:39 INFO Database Connection Established
-2026-06-28 23:16:39 INFO Database Connection Established
-2026-06-28 23:16:59 INFO User logged out. Email: admin@gmail.com
+2026-06-29 14:22:06 INFO package: mysql.connector.plugins
+2026-06-29 14:22:06 INFO plugin_name: caching_sha2_password
+2026-06-29 14:22:06 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-29 14:22:06 INFO Database Connection Established
+2026-06-29 14:22:06 INFO Login successful. User: ms1@gmail.com, Role: PASSENGER
+2026-06-29 14:22:06 INFO Database Connection Established
+2026-06-29 14:22:06 INFO Database Connection Established
+2026-06-29 14:22:06 INFO Database Connection Established
+2026-06-29 14:22:12 INFO Auto login payload found: ms1@gmail.com
+2026-06-29 14:22:12 INFO package: mysql.connector.plugins
+2026-06-29 14:22:12 INFO plugin_name: caching_sha2_password
+2026-06-29 14:22:12 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-29 14:22:12 INFO Database Connection Established
+2026-06-29 14:22:12 INFO Database Connection Established
+2026-06-29 14:22:13 INFO Database Connection Established
+2026-06-29 14:22:13 INFO Database Connection Established
+2026-06-29 14:22:33 INFO User logged out. Email: ms1@gmail.com
+2026-06-29 14:22:50 INFO package: mysql.connector.plugins
+2026-06-29 14:22:50 INFO plugin_name: caching_sha2_password
+2026-06-29 14:22:50 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-29 14:22:50 INFO Database Connection Established
+2026-06-29 14:22:50 INFO Login successful. User: ms1@gmail.com, Role: PASSENGER
+2026-06-29 14:22:50 INFO Database Connection Established
+2026-06-29 14:22:50 INFO Database Connection Established
+2026-06-29 14:22:50 INFO Database Connection Established
+2026-06-29 14:22:55 ERROR JWT Token Read Failed: The token is not yet valid (iat)
+2026-06-29 14:23:37 ERROR JWT Token Read Failed: The token is not yet valid (iat)
+2026-06-29 14:23:48 INFO package: mysql.connector.plugins
+2026-06-29 14:23:48 INFO plugin_name: caching_sha2_password
+2026-06-29 14:23:48 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-29 14:23:48 INFO Database Connection Established
+2026-06-29 14:23:48 INFO Login successful. User: ms1@gmail.com, Role: PASSENGER
+2026-06-29 14:23:48 INFO Database Connection Established
+2026-06-29 14:23:48 INFO Database Connection Established
+2026-06-29 14:23:48 INFO Database Connection Established
+2026-06-29 14:23:57 INFO Auto login payload found: ms1@gmail.com
+2026-06-29 14:23:57 INFO package: mysql.connector.plugins
+2026-06-29 14:23:57 INFO plugin_name: caching_sha2_password
+2026-06-29 14:23:57 INFO AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-06-29 14:23:57 INFO Database Connection Established
+2026-06-29 14:23:57 INFO Database Connection Established
+2026-06-29 14:23:57 INFO Database Connection Established
+2026-06-29 14:23:58 INFO Database Connection Established
+2026-06-29 14:26:22 INFO Database Connection Established
+2026-06-29 14:26:22 INFO Database Connection Established
+2026-06-29 14:26:22 INFO Database Connection Established
+2026-06-29 14:26:22 INFO Database Connection Established
+2026-06-29 14:28:36 INFO User logged out. Email: ms1@gmail.com

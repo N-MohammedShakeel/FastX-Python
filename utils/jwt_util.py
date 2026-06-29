@@ -1,12 +1,15 @@
 import jwt
 from utils.logger import log_error
+from datetime import datetime, timedelta, timezone
 
 SECRET_KEY = "fastx_secret"
 
 def generate_token(email, role):
     payload = {
         "email": email,
-        "role": role
+        "role": role,
+        "exp": datetime.now(timezone.utc) + timedelta(hours=1),
+        "iat": datetime.now(timezone.utc) 
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token

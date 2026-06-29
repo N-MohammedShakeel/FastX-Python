@@ -33,7 +33,7 @@ class PassengerController:
     @role_allowed(ROLE_PASSENGER)
     def book_ticket(self, passenger_id, bus_id, seat_str):
         try:
-            seat_list = [int(x.strip()) for x in seat_str.split(",") if x.strip()]
+            seat_list = [int(seat.strip()) for seat in seat_str.split(",") if seat.strip()]
             if self.passenger_service.book_ticket(passenger_id, bus_id, seat_list):
                 print("SUCCESS: Ticket Booked Successfully.")
         except Exception as exception:

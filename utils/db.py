@@ -10,7 +10,7 @@ def get_connection():
             password="MSmysql@1",
             database="fastx"
         )
-        log_info("Database Connection Established")
+        # log_info("Database Connection Established")
         return conn
     except Exception as exception:
         log_error(f"Database Connection Failed: {exception}")
